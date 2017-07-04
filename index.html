@@ -2,54 +2,37 @@
 layout: default
 title: Home
 ---
-<div class="img">
-    <img src="http://res.cloudinary.com/shreyas/image/upload/v1498848033/Screen_Shot_2017-07-01_at_12.09.41_AM_riefve.png" />
-</div>
-
 
 <p><ul>
-  <li>In this example we will see how to handle a requirement where a user wants to upload a huge excel sheet data and validate the data in our controller.</li>
-  <li>Each row will be validated.</li>
-  <li>As you can see the first column header says message where any error messages will be displayed in that column.</li>
-  <li>If you want to submit a huge data, there are chances where a variable which is binded can be null in the controller as there are some limitations on the size of data that is being submitted. So what do we do now???</li>
-  <li>We will compress the data in JSP and decompress in the controller.</li>
-  <li>We will use lz-string to compress and decompress.</li>
-  <li>Add lz-string js to your JSP <br><code>&lt;script language="javascript" src="lz-string.js"&gt;&lt;/script&gt;</code> </li>
-  <li>Add the below code to compress the handson table data.<br><code>
-		var compressed = LZString.compress(hot.getData());<br>
-	</code> </li>
-  <li>Decompress the compressed data in your controller using the below code.<br>
-  		<code>JSPath = Your JS path; <br><br>
-		
-		File fileJS = null;<br>
-		ScriptEngineManager mgr = null;<br>
-		ScriptEngine engine = null;<br>
-		String contentJS = null;<br><br>
-
-		fileJS = new File(JSPath);<br>
-		mgr = new ScriptEngineManager();<br>
-		engine = mgr.getEngineByName("JavaScript");<br>
-		contentJS = FileUtils.readFileToString(fileJS, "UTF-8");<br>
-		engine.eval(contentJS);<br>
-		engine.eval("var decompressedJSON = LZString.decompressFromEncodedURIComponent('" + compressedJSON + "')");<br>
-		System.out.println((String) engine.get("decompressedJSON"));</code></li>
-			<li>10. Now we will remove the rows if they are empty so that we
-				avoid unnecessary loop. <br><code>
-					Type listType = null;<br> listType = new
-					TypeToken&lt;List&lt;HandsOnTable&gt;&gt;() { }.getType();<br>
-					List&lt;HandsOnTable&gt; bdpmbList = new
-					GsonBuilder().create().fromJson(bulkData, listType); <br>
-					for (int i =0; i < bdpmbList.size(); i++) { <br>
-					if(bdpmbList.get(i).isEmptyBulkData()) { <br>
-					bdpmbList.remove(i); i--; <br>
-					}<br>
-					
-				</code>
-			</li>
-			<li>Now let's validate each rows and set error messages to first column. Enter a non numerical value in any cell and click on upload data</li>
+  <li>Before starting anything, please sign up for Sentry and login.</li>
+  <li>After logging in, this is how your screen will look like.</li>
+  <div class="img">
+    <img src="http://res.cloudinary.com/shreyas/image/upload/v1499158278/Screen_Shot_2017-07-04_at_1.29.14_PM_aj3mwa.png" />
+</div>
+  <li>Click on <b>New Project</b> and create the project.</li>
+  <div class="img">
+    <img src="http://res.cloudinary.com/shreyas/image/upload/v1499158343/Screen_Shot_2017-07-04_at_1.32.01_PM_ghppij.png" />
+</div>
+  <li>Click on get your dsn and you will get your dsn and make a note of it.</li>
+  <div class="img">
+    <img src="http://res.cloudinary.com/shreyas/image/upload/v1499158389/Screen_Shot_2017-07-04_at_1.33.31_PM_dsyz0s.png" />
+</div>
+  <li>And that's it, you have got your dsn and you need to paste this dsn in your log4j.properties file.<br>
+	</code>log4j.appender.SentryAppender.dsn= Your DSN here</li>
+  <li>After executing this application you will recieve an email similar to this.
+  <div class="img">
+    <img src="http://res.cloudinary.com/shreyas/image/upload/v1499158433/Screen_Shot_2017-07-04_at_1.38.47_PM_yqhiyc.png" />
+</div>
+  </li>
+  <li>Additionally you can handle and track the reported error. Sentry provides several options like STATUS, HAS TAG, ASSIGNED TO, BOOKMARKED BY, APPLICATION etc.
+  </li>
   
-</ul> </p>
-
+  <div class="img">
+    <img src="http://res.cloudinary.com/shreyas/image/upload/v1499158465/Screen_Shot_2017-07-04_at_2.19.29_PM_bvwtx8.png" />
+</div>
+  </ul>
+  </p>
+  
 
 <div id="disqus_thread"></div>
 <script>
